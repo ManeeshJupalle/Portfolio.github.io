@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [isVisible, setIsVisible] = useState({});
+  const [typedText, setTypedText] = useState('');
+  const [typedTitle, setTypedTitle] = useState('');
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [particlesData, setParticlesData] = useState([]);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
