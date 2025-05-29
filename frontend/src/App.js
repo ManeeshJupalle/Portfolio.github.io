@@ -69,8 +69,8 @@ function App() {
       for (let i = 0; i < 50; i++) {
         particles.push({
           id: i,
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
+          x: Math.random() * (window.innerWidth || 1920),
+          y: Math.random() * (window.innerHeight || 1080),
           size: Math.random() * 3 + 1,
           speedX: (Math.random() - 0.5) * 0.5,
           speedY: (Math.random() - 0.5) * 0.5,
@@ -88,18 +88,27 @@ function App() {
   // Animate particles
   useEffect(() => {
     const animateParticles = () => {
-      setParticlesData(prev => prev.map(particle => ({
-        ...particle,
-        x: particle.x + particle.speedX,
-        y: particle.y + particle.speedY,
-        x: particle.x > window.innerWidth ? 0 : particle.x < 0 ? window.innerWidth : particle.x,
-        y: particle.y > window.innerHeight ? 0 : particle.y < 0 ? window.innerHeight : particle.y,
-      })));
+      setParticlesData(prev => prev.map(particle => {
+        let newX = particle.x + particle.speedX;
+        let newY = particle.y + particle.speedY;
+        
+        // Wrap around screen edges
+        if (newX > (window.innerWidth || 1920)) newX = 0;
+        if (newX < 0) newX = (window.innerWidth || 1920);
+        if (newY > (window.innerHeight || 1080)) newY = 0;
+        if (newY < 0) newY = (window.innerHeight || 1080);
+        
+        return {
+          ...particle,
+          x: newX,
+          y: newY,
+        };
+      }));
     };
 
     const interval = setInterval(animateParticles, 50);
     return () => clearInterval(interval);
-  }, []);
+  }, [particlesData.length]);
 
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
