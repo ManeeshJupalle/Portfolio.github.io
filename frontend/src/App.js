@@ -219,7 +219,34 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-x-hidden">
+      {/* Custom Cursor */}
+      <div 
+        className="fixed w-6 h-6 rounded-full bg-blue-400/30 pointer-events-none z-50 transition-all duration-100 ease-out"
+        style={{
+          left: mousePosition.x - 12,
+          top: mousePosition.y - 12,
+          transform: 'scale(1)',
+        }}
+      />
+
+      {/* Animated Particles Background */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {particlesData.map(particle => (
+          <div
+            key={particle.id}
+            className="absolute rounded-full bg-blue-400"
+            style={{
+              left: particle.x,
+              top: particle.y,
+              width: particle.size,
+              height: particle.size,
+              opacity: particle.opacity,
+            }}
+          />
+        ))}
+      </div>
+
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-slate-900/95 backdrop-blur-sm z-50 border-b border-blue-500/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -232,7 +259,7 @@ function App() {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
-                  className={`capitalize transition-colors duration-300 hover:text-blue-400 ${
+                  className={`capitalize transition-all duration-300 hover:text-blue-400 hover:scale-110 ${
                     activeSection === item ? 'text-blue-400' : 'text-gray-300'
                   }`}
                 >
@@ -250,30 +277,40 @@ function App() {
           className="absolute inset-0 bg-cover bg-center opacity-20"
           style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1488590528505-98d2b5aba04b)' }}
         ></div>
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/50 to-slate-900/80"></div>
+        
+        <div className="relative z-10 text-center max-w-5xl mx-auto px-4">
           <div className={`transition-all duration-1000 ${isVisible.home ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center text-4xl font-bold">
+            <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center text-4xl font-bold animate-pulse-slow">
               MR
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              Laxmi Sai Maneesh Reddy
+            
+            {/* Fixed Name Display */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent leading-tight whitespace-nowrap overflow-hidden text-shadow-lg">
+              <span className="inline-block min-w-full">
+                {typedText || 'Laxmi Sai Maneesh Reddy Jupalle'}
+                <span className="animate-pulse">|</span>
+              </span>
             </h1>
-            <h2 className="text-2xl md:text-3xl mb-6 text-gray-300">
-              Computer Science Graduate Student | AI & ML Specialist
+            
+            <h2 className="text-xl sm:text-2xl md:text-3xl mb-6 text-gray-200 min-h-[3rem] text-shadow">
+              {typedTitle || 'Computer Science Graduate Student | AI & ML Specialist'}
             </h2>
-            <p className="text-xl mb-8 text-gray-400 max-w-2xl mx-auto">
+            
+            <p className="text-lg sm:text-xl mb-8 text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Passionate about Artificial Intelligence, Machine Learning, and building innovative solutions that make a difference.
             </p>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => scrollToSection('projects')}
-                className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl hover:shadow-blue-500/25"
               >
                 View My Work
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="px-8 py-3 border-2 border-blue-500 rounded-full font-semibold hover:bg-blue-500 transition-all duration-300"
+                className="px-8 py-4 border-2 border-blue-500 rounded-full font-semibold hover:bg-blue-500 transition-all duration-300 transform hover:scale-110"
               >
                 Get In Touch
               </button>
