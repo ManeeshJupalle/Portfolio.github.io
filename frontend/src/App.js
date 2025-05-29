@@ -518,27 +518,44 @@ function App() {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.map((project, index) => (
-                <div key={index} className="bg-slate-700/50 rounded-xl overflow-hidden border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group">
-                  <div className="h-48 bg-cover bg-center" style={{ backgroundImage: `url(${project.image})` }}>
-                    <div className="h-full bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                <div key={index} className="group relative bg-slate-700/50 rounded-xl overflow-hidden border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover-lift">
+                  <div 
+                    className="h-48 bg-cover bg-center relative overflow-hidden" 
+                    style={{ backgroundImage: `url(${project.image})` }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent group-hover:from-slate-900/70 transition-all duration-300"></div>
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-8 h-8 bg-blue-500/80 rounded-full flex items-center justify-center">
+                        <span className="text-white text-sm">→</span>
+                      </div>
+                    </div>
                   </div>
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-3">
-                      <h3 className="text-xl font-semibold text-blue-400">{project.title}</h3>
-                      <span className="text-xs text-gray-400">{project.period}</span>
+                      <h3 className="text-xl font-semibold text-blue-400 group-hover:text-blue-300 transition-colors">
+                        {project.title}
+                      </h3>
+                      <span className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                        {project.period}
+                      </span>
                     </div>
-                    <p className="text-gray-300 mb-4">{project.description}</p>
+                    <p className="text-gray-300 mb-4 group-hover:text-gray-200 transition-colors">
+                      {project.description}
+                    </p>
                     <div className="flex flex-wrap gap-2">
                       {project.highlights.map((highlight, idx) => (
                         <span
                           key={idx}
-                          className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs border border-blue-500/30"
+                          className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs border border-blue-500/30 group-hover:bg-blue-500/30 group-hover:border-blue-500/50 transition-all duration-300"
                         >
                           {highlight}
                         </span>
                       ))}
                     </div>
                   </div>
+                  
+                  {/* Interactive overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                 </div>
               ))}
             </div>
@@ -546,26 +563,26 @@ function App() {
             {/* Publications */}
             <div className="mt-16">
               <h3 className="text-2xl font-bold text-center mb-8 text-blue-400">Publications</h3>
-              <div className="bg-slate-700/50 p-8 rounded-xl border border-purple-500/20">
-                <h4 className="text-xl font-semibold text-purple-400 mb-3">
+              <div className="bg-slate-700/50 p-8 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover-lift group">
+                <h4 className="text-xl font-semibold text-purple-400 mb-3 group-hover:text-purple-300 transition-colors">
                   "Diabetic Retinopathy Detection using ML"
                 </h4>
-                <p className="text-gray-300 mb-4">
+                <p className="text-gray-300 mb-4 group-hover:text-gray-200 transition-colors">
                   Developed a 5-layer CNN achieving 94.5% image classification accuracy. 
                   Recognized as International Best Researcher by ISSN.
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded text-sm border border-purple-500/30">
+                  <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded text-sm border border-purple-500/30 group-hover:bg-purple-500/30 transition-all duration-300">
                     94.5% Accuracy
                   </span>
-                  <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded text-sm border border-green-500/30">
+                  <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded text-sm border border-green-500/30 group-hover:bg-green-500/30 transition-all duration-300">
                     ISSN Recognition
                   </span>
                   <a 
                     href="https://www.ijariit.com/manuscript/diabetic-retinopathy-detection-using-machine-learning/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded text-sm border border-blue-500/30 hover:bg-blue-500/30 transition-colors"
+                    className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded text-sm border border-blue-500/30 hover:bg-blue-500/30 hover:border-blue-500/50 transition-all duration-300 hover:scale-105"
                   >
                     Read Publication →
                   </a>
