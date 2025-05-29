@@ -446,38 +446,52 @@ function App() {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {Object.entries(skills).map(([category, skillList], index) => (
-                <div key={category} className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/20">
-                  <h3 className="text-xl font-semibold text-blue-400 mb-4 capitalize">
+                <div key={category} className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover-lift">
+                  <h3 className="text-xl font-semibold text-blue-400 mb-6 capitalize">
                     {category.replace(/([A-Z])/g, ' $1').trim()}
                   </h3>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="space-y-4">
                     {skillList.map((skill, idx) => (
-                      <span
-                        key={idx}
-                        className="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-gray-300 rounded-full text-sm border border-blue-500/30"
-                      >
-                        {skill}
-                      </span>
+                      <div key={idx} className="group">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-gray-300 group-hover:text-white transition-colors">
+                            {skill.name}
+                          </span>
+                          <span className="text-blue-400 text-sm font-semibold">
+                            {skill.level}%
+                          </span>
+                        </div>
+                        <div className="w-full bg-slate-700 rounded-full h-2 overflow-hidden">
+                          <div 
+                            className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-1000 ease-out"
+                            style={{ 
+                              width: isVisible.skills ? `${skill.level}%` : '0%',
+                              transitionDelay: `${idx * 100}ms`
+                            }}
+                          />
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
               ))}
             </div>
+            
             <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div className="bg-slate-800/50 p-6 rounded-xl border border-green-500/20">
-                <div className="text-3xl font-bold text-green-400 mb-2">4+</div>
+              <div className="bg-slate-800/50 p-6 rounded-xl border border-green-500/20 hover:border-green-500/40 transition-all duration-300 hover-lift">
+                <div className="text-3xl font-bold text-green-400 mb-2 counter-animate">4+</div>
                 <div className="text-gray-300">Languages Spoken</div>
               </div>
-              <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/20">
-                <div className="text-3xl font-bold text-blue-400 mb-2">2+</div>
+              <div className="bg-slate-800/50 p-6 rounded-xl border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover-lift">
+                <div className="text-3xl font-bold text-blue-400 mb-2 counter-animate">2+</div>
                 <div className="text-gray-300">Years Experience</div>
               </div>
-              <div className="bg-slate-800/50 p-6 rounded-xl border border-purple-500/20">
-                <div className="text-3xl font-bold text-purple-400 mb-2">10+</div>
+              <div className="bg-slate-800/50 p-6 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover-lift">
+                <div className="text-3xl font-bold text-purple-400 mb-2 counter-animate">10+</div>
                 <div className="text-gray-300">Technologies</div>
               </div>
-              <div className="bg-slate-800/50 p-6 rounded-xl border border-pink-500/20">
-                <div className="text-3xl font-bold text-pink-400 mb-2">3.8</div>
+              <div className="bg-slate-800/50 p-6 rounded-xl border border-pink-500/20 hover:border-pink-500/40 transition-all duration-300 hover-lift">
+                <div className="text-3xl font-bold text-pink-400 mb-2 counter-animate">3.8</div>
                 <div className="text-gray-300">GPA</div>
               </div>
             </div>
